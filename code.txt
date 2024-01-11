@@ -1,0 +1,252 @@
+create a simple expense sharing app using Flask and SQLite¹
+
+
+
+#A class to represent a person
+class Person:
+
+    def _init_(self, name):
+
+        self.name = name
+ # The name of the person
+
+        self.expenses = []
+ # A list of expenses made by the person
+
+        self.balance = 0 
+# The net amount the person owes or is owed
+
+
+
+    def add_expense(self, amount):
+
+# Add an expense to the person's list and update the balance
+
+
+        self.expenses.append(amount)
+
+        self.balance -= amount
+
+
+    def _str_(self):
+        
+# Return a string representation of the person
+
+
+       return f"{self.name}: {self.balance}"
+
+
+# A class to represent a group of people
+
+
+class Group:
+    
+        def _init_(self, name, people):
+
+        self.name = name 
+# The name of the group
+
+
+        self.people = people
+ # A list of people in the group
+
+
+        self.total = 0
+ # The total amount of expenses in the group
+
+
+       self.average = 0
+ # The average amount of expenses per person
+
+
+
+    def add_person(self, person):
+
+# Add a person to the group
+
+
+        self.people.append(person)
+
+
+    def remove_person(self, person):
+
+
+# Remove a person from the group
+
+
+        self.people.remove(person)
+
+
+    def calculate_total(self):
+
+
+# Calculate the total amount of expenses in the group
+
+
+        self.total = 0
+
+        for person in self.people:
+
+            self.total += sum(person.expenses)
+
+
+    def calculate_average(self):
+
+
+# Calculate the average amount of expenses per person
+
+
+
+        self.average = self.total / len(self.people)
+
+
+    def calculate_balances(self):
+
+# Calculate the net amount each person owes or is owed
+
+
+
+        for person in self.people:
+
+            person.balance += self.average
+
+
+
+    def settle_balances(self):
+
+
+
+ # Settle the balances by transferring money between people
+
+ # Sort the people by their balance in ascending order
+
+
+
+        self.people.sort(key=lambda x: x.balance)
+
+        i = 0
+
+ # The index of the person with the lowest balance
+
+
+        j = len(self.people) - 1
+
+
+# The index of the person with the highest balance
+
+
+        while i < j:
+     
+       
+# Find the minimum amount to be transferred
+
+
+            amount = min(-self.people[i].balance, self.people[j].balance)
+
+
+
+# Transfer the amount
+  
+
+          
+self.people[i].balance += amount
+            
+self.people[j].balance -= amount
+            
+
+
+# Print the transaction
+ 
+
+           
+print(f"{self.people[i].name} pays {self.people[j].name} {amount}")
+
+            
+
+# Update the indices
+
+
+            if self.people[i].balance == 0:
+
+                i += 1
+
+            if self.people[j].balance == 0:
+
+                j -= 1
+
+
+
+    def _str_(self):
+
+
+        # Return a string representation of the group
+
+
+        result = f"{self.name}: \n"
+
+        result += f"Total: {self.total} \n"
+
+        result += f"Average: {self.average} \n"
+
+        for person in self.people:
+
+            result += f"{person} \n"
+
+        return result
+
+
+
+
+# Create a group of four people
+
+
+
+alice = Person("Alice")
+
+bob = Person("Bob")
+
+charlie = Person("Charlie")
+
+david = Person("David")
+
+
+friends = Group("Friends", [alice, bob, charlie, david])
+
+
+
+
+# Add some expenses
+
+
+
+alice.add_expense(100)
+
+bob.add_expense(50)
+
+charlie.add_expense(150)
+
+david.add_expense(200)
+
+
+
+
+# Calculate and print the group 
+details
+
+
+friends.calculate_total()
+
+friends.calculate_average()
+
+friends.calculate_balances()
+
+print(friends)
+
+
+
+
+# Settle the balances
+
+
+
+friends.settle_balances()

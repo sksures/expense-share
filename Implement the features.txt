@@ -1,0 +1,1 @@
+Implement the features you want to include in the app, such as adding expenses, splitting bills, and tracking who owes whom.

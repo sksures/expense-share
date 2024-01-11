@@ -1,0 +1,1 @@
+Define the tables and relationships between them to store user information, expenses, and payments.

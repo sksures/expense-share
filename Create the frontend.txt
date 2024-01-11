@@ -1,0 +1,1 @@
+Use HTML, CSS, and JavaScript to create the user interface for the app. Use Jinja2 to render dynamic content.

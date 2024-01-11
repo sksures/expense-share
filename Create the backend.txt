@@ -1,0 +1,1 @@
+Use Flask to create the server-side application that handles HTTP requests and responses. Use SQLAlchemy to interact with the database.
